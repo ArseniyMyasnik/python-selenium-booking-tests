@@ -8,6 +8,7 @@ import inspect
 import allure
 from allure import attachment_type
 import time
+from .locators import BasePageLocators
 
 class BasePage():
     def __init__(self, browser, url):
@@ -38,6 +39,7 @@ class BasePage():
         button.click()
 
     def press_button(self, type_selector, selector):
+        time.sleep(3)
         try:
             button = self.browser.find_element(type_selector, selector)
             button.click()
@@ -53,3 +55,27 @@ class BasePage():
         except NoSuchElementException:
             return False
         return True
+
+    def scroll_to_element(self, type_selector, selector):
+        element = self.browser.find_element(type_selector, selector)
+        self.browser.execute_script('arguments[0].scrollIntoView(true);', element)
+
+    def is_element_displayed(self, type_selector, selector):
+        time.sleep(2)
+        element = self.browser.find_element(type_selector, selector)
+        is_displayed = self.browser.execute_script(
+            "var elem = arguments[0];"
+            "var rect = elem.getBoundingClientRect();"
+            "return ("
+            "rect.top >= 0 && rect.left >= 0 && "
+            "rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && "
+            "rect.right <= (window.innerWidth || document.documentElement.clientWidth));",
+            element)
+        return is_displayed
+
+    def get_text_from_element(self, type_selector, selector):
+        element = self.browser.find_element(type_selector, selector)
+        return element.text
+
+    def should_be_stub_error_message(self):
+        assert self.is_element_present(*BasePageLocators.STUB_ERROR_MESSAGE)

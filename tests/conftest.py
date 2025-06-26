@@ -34,4 +34,5 @@ def link_main_page(request):
 @pytest.fixture(scope='function')
 def open_main_page(browser, link_main_page):
     browser.get(link_main_page)
+    browser.implicitly_wait(5)
     yield browser, link_main_page
