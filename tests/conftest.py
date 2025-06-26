@@ -9,6 +9,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from pages.base_page import BasePage
 from constants import UrlPage
+from webdriver_manager.chrome import ChromeDriverManager
 
 def pytest_addoption(parser):
     parser.addoption('--headless', action='store_true', help='запуск без интерфейса')
@@ -20,7 +21,7 @@ def browser(request):
     if headless:
         chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
-    service = Service(executable_path=os.path.abspath('../chromedriver.exe'))
+    service = Service(ChromeDriverManager().install())
     browser = webdriver.Chrome(service=service, options=chrome_options)
     yield browser
     print("\nquit browser")
