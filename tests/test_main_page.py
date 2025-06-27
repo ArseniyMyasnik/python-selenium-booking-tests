@@ -10,7 +10,7 @@ class TestMainPage():
     def test_opened_main_page(self, open_main_page):
         browser, link = open_main_page
         page = MainPage(browser, link)
-        with allure.step('Резульат: должна быть открыта главная страница'):
+        with allure.step('Результат: должна быть открыта главная страница'):
             page.should_be_opened_main_page()
 
     @allure.description('MP-2 - Кнопка "Book now" прокручивает страницу до раздела "Our Rooms"')
