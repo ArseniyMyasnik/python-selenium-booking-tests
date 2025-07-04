@@ -56,9 +56,14 @@ class BasePage():
             return False
         return True
 
-    def scroll_to_element(self, type_selector, selector):
+    def scroll_to_element(self, type_selector, selector, offset=0):
         element = self.browser.find_element(type_selector, selector)
-        self.browser.execute_script('arguments[0].scrollIntoView(true);', element)
+        self.browser.execute_script('arguments[0].scrollIntoView({behavior: "instant", block: "start"});'
+                                    f'window.scrollBy(0, {offset});'
+                                    , element)
+
+    def scroll_by_n_pixels(self, n):
+        self.browser.execute_script(f'window.scrollBy(0, {n});')
 
     def is_element_displayed(self, type_selector, selector):
         time.sleep(2)
@@ -78,4 +83,14 @@ class BasePage():
         return element.text
 
     def should_be_stub_error_message(self):
+        self.take_screenshot()
         assert self.is_element_present(*BasePageLocators.STUB_ERROR_MESSAGE)
+
+    def take_screenshot(self):
+        time.sleep(0.5)
+        screenshot = self.browser.get_screenshot_as_png()
+        allure.attach(
+            screenshot,
+            "Screenshot",
+            attachment_type=allure.attachment_type.PNG
+        )
