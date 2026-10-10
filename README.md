@@ -29,16 +29,24 @@ The project includes automated UI tests for the main page of the demo booking we
 
 ```text
 python-selenium-booking-tests/
+├── docs/
+│   └── images/
+│       ├── allure-overview.png
+│       └── allure-test-steps.png
 ├── pages/
+│   ├── __init__.py
 │   ├── base_page.py          # Common browser actions
 │   ├── locators.py           # Page locators
 │   └── main_page.py          # Main page object methods
 ├── tests/
+│   ├── __init__.py
 │   ├── conftest.py           # Browser setup and fixtures
 │   └── test_main_page.py     # Automated UI tests
 ├── test-cases/
 │   └── main-page-test-cases.md
+├── __init__.py
 ├── constants.py
+├── requirements.in
 ├── requirements.txt
 └── README.md
 ```
