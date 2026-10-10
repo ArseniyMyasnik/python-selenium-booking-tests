@@ -27,7 +27,7 @@
 1. **Клонируйте репозиторий**
 
   ```bash
-  git clone https://github.com/<ваш-аккаунт>/python-selenium-booking-tests.git
+  git clone https://github.com/ArseniyMyasnik/python-selenium-booking-tests.git
   cd python-selenium-booking-tests
   ```
 
