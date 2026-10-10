@@ -1,5 +1,7 @@
 # python-selenium-booking-tests
 
+[![Tests](https://github.com/ArseniyMyasnik/python-selenium-booking-tests/actions/workflows/tests.yml/badge.svg)](https://github.com/ArseniyMyasnik/python-selenium-booking-tests/actions/workflows/tests.yml)
+
 Automated UI tests for the demo booking website [Automation in Testing](https://automationintesting.online/) using **Python**, **Selenium WebDriver**, **pytest**, **Allure Report**, and the **Page Object Model** pattern.
 
 This project was created as a QA Automation portfolio project. It demonstrates UI test automation, test design, pytest fixtures, Allure reporting, and a maintainable Page Object structure.
@@ -11,6 +13,7 @@ This project was created as a QA Automation portfolio project. It demonstrates U
 - **pytest 8.x** - test runner and test organization
 - **Allure Report 2.x** - test execution reports
 - **webdriver-manager 4.x** - browser driver management
+- **GitHub Actions** - continuous integration
 - **Page Object Model** - test architecture pattern
 
 ## What Is Covered
@@ -29,6 +32,9 @@ The project includes automated UI tests for the main page of the demo booking we
 
 ```text
 python-selenium-booking-tests/
+├── .github/
+│   └── workflows/
+│       └── tests.yml          # GitHub Actions workflow
 ├── docs/
 │   └── images/
 │       ├── allure-overview.png
@@ -60,6 +66,16 @@ test-cases/main-page-test-cases.md
 ```
 
 They describe tested areas, test data, expected results, and negative scenarios for the main page functionality.
+
+## Continuous Integration
+
+The project uses **GitHub Actions** to validate test collection on every push and pull request.
+
+The CI workflow installs project dependencies with `pip install -r requirements.txt` and runs:
+
+```bash
+pytest --collect-only
+```
 
 ## Allure Report
 
