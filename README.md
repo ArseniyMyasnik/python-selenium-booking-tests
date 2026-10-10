@@ -52,6 +52,7 @@ python-selenium-booking-tests/
 │   └── main-page-test-cases.md
 ├── __init__.py
 ├── constants.py
+├── pytest.ini              # pytest configuration
 ├── requirements.in
 ├── requirements.txt
 └── README.md
@@ -127,25 +128,25 @@ pip install -r requirements.txt
 Run all tests:
 
 ```bash
-pytest -vv
+pytest
 ```
 
 Run tests in headless mode:
 
 ```bash
-pytest -vv --headless
+pytest --headless
 ```
 
 Run tests with Allure results:
 
 ```bash
-pytest -vv --alluredir=reports
+pytest
 ```
 
 Generate and open the Allure report:
 
 ```bash
-allure serve reports
+allure serve allure-results
 ```
 
 ## Notes
@@ -153,9 +154,3 @@ allure serve reports
 Some tests are marked with `xfail` because the demo website does not display validation errors for certain invalid date scenarios.
 
 These tests document expected behavior and highlight missing validation on the tested website.
-
-## Author
-
-Arseniy Myasnik  
-QA Engineer | Manual & Automation  
-Python, Selenium, pytest, SQL, API/SOAP

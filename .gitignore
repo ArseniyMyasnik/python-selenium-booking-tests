@@ -2,4 +2,4 @@
 venv/
 chromedriver.exe
 *cache*
-allure-reports/
+allure-results/
