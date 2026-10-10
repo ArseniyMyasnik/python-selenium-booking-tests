@@ -1,60 +1,137 @@
 # python-selenium-booking-tests
 
-Автоматизированные UI-тесты для демонстрационного сайта **Automation In Testing**  
-(<https://automationintesting.online/>) на **Python + Selenium WebDriver** c использованием **PyTest** и **Allure Report**.  
-Проект построен по паттерну **Page Object Model** и предназначен для демонстрации навыков и скиллов.
+Automated UI tests for the demo booking website [Automation in Testing](https://automationintesting.online/) using **Python**, **Selenium WebDriver**, **pytest**, **Allure Report**, and the **Page Object Model** pattern.
 
----
+This project was created as a QA Automation portfolio project. It demonstrates UI test automation, test design, pytest fixtures, Allure reporting, and a maintainable Page Object structure.
 
-## Стек технологий
+## Tech Stack
 
-- **Python 3.x** — язык разработки тестов
-- **Selenium WebDriver 4.x** — автоматизация браузера
-- **PyTest 8.x** — запуск и организация тестов
-- **Allure Report 2.x** — отчёты о прохождении тестов
-- **webdriver-manager 4.x** — установка драйверов для браузеров
-- **Page Object Model (POM)** — архитектура тестов
+- **Python 3.x** - programming language
+- **Selenium WebDriver 4.x** - browser automation
+- **pytest 8.x** - test runner and test organization
+- **Allure Report 2.x** - test execution reports
+- **webdriver-manager 4.x** - browser driver management
+- **Page Object Model** - test architecture pattern
 
-## Содержание
+## What Is Covered
 
-- [Быстрый старт](#быстрый-старт)
-- [Запуск тестов](#запуск-тестов)
+The project includes automated UI tests for the main page of the demo booking website:
 
----
+- opening the main page;
+- navigation to the rooms section;
+- room availability checks;
+- date validation scenarios;
+- contact form validation;
+- positive and negative input checks;
+- expected failures for missing validation on the demo website.
 
-## Быстрый старт
+## Project Structure
 
-1. **Клонируйте репозиторий**
+```text
+python-selenium-booking-tests/
+├── pages/
+│   ├── base_page.py          # Common browser actions
+│   ├── locators.py           # Page locators
+│   └── main_page.py          # Main page object methods
+├── tests/
+│   ├── conftest.py           # Browser setup and fixtures
+│   └── test_main_page.py     # Automated UI tests
+├── test-cases/
+│   └── main-page-test-cases.md
+├── constants.py
+├── requirements.txt
+└── README.md
+```
 
-  ```bash
-  git clone https://github.com/ArseniyMyasnik/python-selenium-booking-tests.git
-  cd python-selenium-booking-tests
-  ```
+## Test Documentation
 
-2. **Создайте виртуальное окружение**
+Manual test cases are stored in:
 
-  ```bash
-  python -m venv venv
-  # Linux / macOS
-  source venv/bin/activate
-  # Windows
-  venv\Scripts\activate
-  ```
+```text
+test-cases/main-page-test-cases.md
+```
 
-3. **Установите зависимости**
+They describe tested areas, test data, expected results, and negative scenarios for the main page functionality.
 
-  ```bash
-  pip install -r requirements.txt
-  ```
+## Allure Report
 
-## Запуск тестов
+The project uses **Allure Report** to make test execution results easier to analyze.
 
-  ```bash
-  pytest -vv
+The report includes test statuses, execution time, detailed test steps, parameters, and screenshots attached during test execution.
 
-  # Запуск без GUI (headless режим)
-  pytest -vv --headless
+![Allure overview](docs/images/allure-overview.png)
 
-  # Формирование отчёта Allure (директория reports/)
-  pytest -vv --alluredir=reports
-  ```
+![Allure test steps](docs/images/allure-test-steps.png)
+
+## Quick Start
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/ArseniyMyasnik/python-selenium-booking-tests.git
+cd python-selenium-booking-tests
+```
+
+2. Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+3. Activate the virtual environment.
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux / macOS:
+
+```bash
+source venv/bin/activate
+```
+
+4. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running Tests
+
+Run all tests:
+
+```bash
+pytest -vv
+```
+
+Run tests in headless mode:
+
+```bash
+pytest -vv --headless
+```
+
+Run tests with Allure results:
+
+```bash
+pytest -vv --alluredir=reports
+```
+
+Generate and open the Allure report:
+
+```bash
+allure serve reports
+```
+
+## Notes
+
+Some tests are marked with `xfail` because the demo website does not display validation errors for certain invalid date scenarios.
+
+These tests document expected behavior and highlight missing validation on the tested website.
+
+## Author
+
+Arseniy Myasnik  
+QA Engineer | Manual & Automation  
+Python, Selenium, pytest, SQL, API/SOAP

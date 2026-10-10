@@ -1,22 +1,17 @@
-import os
 import pytest
-import allure
-import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from pages.base_page import BasePage
 from constants import UrlPage
 from webdriver_manager.chrome import ChromeDriverManager
+import contextlib
 
 def pytest_addoption(parser):
-    parser.addoption('--headless', action='store_true', help='запуск без интерфейса')
+    parser.addoption('--headless', action='store_true', help='run without browser UI')
 @pytest.fixture(scope='function')
 def browser(request):
     headless = request.config.getoption('--headless')
-    print('Настройка Chrome')
+    print('Configuring Chrome')
     chrome_options = ChromeOptions()
     if headless:
         chrome_options.add_argument('--headless')
@@ -25,7 +20,8 @@ def browser(request):
     browser = webdriver.Chrome(service=service, options=chrome_options)
     yield browser
     print("\nquit browser")
-    browser.quit()
+    with contextlib.suppress(ConnectionResetError, OSError):
+        browser.quit()
 
 
 @pytest.fixture(scope='module')

@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 class BasePageLocators():
     '''
-    Заглушка, для случаев когда должна появиться ошибка, но она не появляется, а сослаться на ошибку надо
+    Placeholder for cases where an error should appear but does not, while a locator is still needed.
     '''
     STUB_ERROR_MESSAGE = (By.CLASS_NAME, 'error-message')
 class MainPageLocators():
@@ -25,7 +25,7 @@ class MainPageLocators():
     def get_select_nth_date_in_current_month_calendar(current_month, n):
         return (By.XPATH, f'//div[contains(@class, "react-datepicker__day") and contains(@aria-label, "{current_month}") and text()="{n}"]')
 
-    # Форма Send Us a Message
+    # Send Us a Message form
     INPUT_NAME = (By.ID, 'name')
     INPUT_EMAIL = (By.ID, 'email')
     INPUT_PHONE = (By.ID, 'phone')
@@ -33,7 +33,7 @@ class MainPageLocators():
     INPUT_MESSAGE = (By.ID, 'description')
     SUBMIT_SEND_US_A_MESSAGE_FORM = (By.CSS_SELECTOR, '.d-grid > button')
 
-    # Ошибки формы Send Us a Message
+    # Send Us a Message form errors
     ERRORS_SEND_US_A_MESSAGE_FORM = (By.CLASS_NAME, 'alert alert-danger')
     ERROR_NAME_IS_BLANK = (By.XPATH, '//div[@class="alert alert-danger"]//p[text()="Name may not be blank"]')
     ERROR_EMAIL_IS_BLANK = (By.XPATH, '//div[@class="alert alert-danger"]//p[text()="Email may not be blank"]')

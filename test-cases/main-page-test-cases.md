@@ -1,170 +1,170 @@
-# Общие тест-кейсы
+# General Test Cases
 
-## Тест-кейс MP-1: Открыта главная страница
-**Предусловия:**
-- Настроена фикстура open_main_page, которая открывает главную страницу по-умолчанию
+## Test Case MP-1: Main Page Is Opened
+**Preconditions:**
+- The `open_main_page` fixture is configured and opens the main page by default.
 
-**Действия:**
-1. Запустить тест с фикстурой open_main_page
-2. Убедиться, что открылась главная страница
+**Steps:**
+1. Run the test with the `open_main_page` fixture.
+2. Verify that the main page is opened.
 
-**Ожидаемый результат:**
-- Браузер открыт с главной страницей
+**Expected Result:**
+- The browser is opened on the main page.
 
-## Тест-кейс MP-2: Кнопка "Book now" прокручивает страницу до раздела "Our Rooms"
-**Предусловия:**
-- Открыта главная страница сайта, отображается верхняя часть страницы без прокрутки
+## Test Case MP-2: The "Book Now" Button Scrolls the Page to the "Our Rooms" Section
+**Preconditions:**
+- The main page is opened, and the top part of the page is visible without scrolling.
 
-**Действия:**
-1. Нажать кнопку "Book now"
+**Steps:**
+1. Click the "Book Now" button.
 
-**Ожидаемый результат:**
-- Страница прокрутилась до раздела "Our rooms"
+**Expected Result:**
+- The page scrolls to the "Our Rooms" section.
 
-# Тест-кейсы фильтра по датам
+# Date Filter Test Cases
 
-## Тест-кейс MP-3.1: Проверка доступности дат, даты корректные
-**Предусловия:**
-- Главная страница прокручена до раздела "Check Availability & Book Your Stay"
+## Test Case MP-3.1: Check Date Availability With Valid Dates
+**Preconditions:**
+- The main page is scrolled to the "Check Availability & Book Your Stay" section.
 
-**Действия:**
-1. Вставить даты в Check In, Check Out, вторая дата должна быть позже первой
-2. Нажать на Check Availability
+**Steps:**
+1. Enter Check In and Check Out dates, where the second date is later than the first.
+2. Click Check Availability.
 
-**Ожидаемый результат:**
-- Появились доступные комнаты в Our Rooms
+**Expected Result:**
+- Available rooms appear in the Our Rooms section.
 
-## Тест-кейс MP-3.2: Проверка доступности дат, дата въезда позже даты выезда
-**Предусловия:**
-- Главная страница прокручена до раздела "Check Availability & Book Your Stay"
+## Test Case MP-3.2: Check Date Availability When the Check-In Date Is Later Than the Check-Out Date
+**Preconditions:**
+- The main page is scrolled to the "Check Availability & Book Your Stay" section.
 
-**Действия:**
-1. Вставить даты в Check In, Check Out, вторая дата должна быть раньше первой
-2. Нажать на Check Availability
+**Steps:**
+1. Enter Check In and Check Out dates, where the second date is earlier than the first.
+2. Click Check Availability.
 
-**Ожидаемый результат:**
-- Появилась ошибка о некорректности дат
+**Expected Result:**
+- An invalid date error appears.
 
-## Тест-кейс MP-3.3: Проверка доступности дат, даты устаревшие
-**Предусловия:**
-- Главная страница прокручена до раздела "Check Availability & Book Your Stay"
+## Test Case MP-3.3: Check Date Availability With Past Dates
+**Preconditions:**
+- The main page is scrolled to the "Check Availability & Book Your Stay" section.
 
-**Действия:**
-1. Вставить даты в Check In, Check Out, даты устаревшие
-2. Нажать на Check Availability
+**Steps:**
+1. Enter past Check In and Check Out dates.
+2. Click Check Availability.
 
-**Ожидаемый результат:**
-- Появилась ошибка о некорректности дат
+**Expected Result:**
+- An invalid date error appears.
 
-# Тест-кейсы формы "Send Us a Message"
+# "Send Us a Message" Form Test Cases
 
-## Тест-кейс MP-4.1: Нажать "Submit" не заполняя форму
-**Предусловия:**
-1. Открыта форма "Send Us a Message"
+## Test Case MP-4.1: Click "Submit" Without Filling Out the Form
+**Preconditions:**
+1. The "Send Us a Message" form is opened.
 
-**Действия:**
-1. Не заполнять поля формы
-2. Нажать "Submit"
+**Steps:**
+1. Leave the form fields empty.
+2. Click "Submit".
 
-**Ожидаемый результат:**
-- Появится ошибка о необходимости заполнения полей формы
+**Expected Result:**
+- An error appears saying that the form fields must be filled in.
 
-## Тест-кейс MP-4.2: Тесты поля Name
-**Предусловия:**
-1. Открыта форма "Send Us a Message"
+## Test Case MP-4.2: Name Field Tests
+**Preconditions:**
+1. The "Send Us a Message" form is opened.
 
-**Действия:**
-1. Ввести имена в поле Name
-2. Нажать "Submit"
+**Steps:**
+1. Enter names in the Name field.
+2. Click "Submit".
 
-**Тестовые данные и ожидаемый результат:**
-|№|Имя|Ожидаемый результат|
-|-|---|-------------------|
-|1|Ivan|Имя принято, ошибки о некорректном имени нет|
-|2|Иван|Имя принято, ошибки о некорректном имени нет|
-|3|Ivan!|Имя не принято, ошибка о некорректности имени|
-|4|Ivan1|Имя не принято, ошибка о некорректности имени|
+**Test Data and Expected Result:**
+|No.|Name|Expected Result|
+|-|---|---------------|
+|1|Ivan|The name is accepted, and no invalid name error appears.|
+|2|John|The name is accepted, and no invalid name error appears.|
+|3|Ivan!|The name is not accepted, and an invalid name error appears.|
+|4|Ivan1|The name is not accepted, and an invalid name error appears.|
 
-## Тест-кейс MP-4.3: Тесты поля Email
-**Предусловия:**
-1. Открыта форма "Send Us a Message"
+## Test Case MP-4.3: Email Field Tests
+**Preconditions:**
+1. The "Send Us a Message" form is opened.
 
-**Действия:**
-1. Ввести почты в поле Email
-2. Нажать "Submit"
+**Steps:**
+1. Enter email values in the Email field.
+2. Click "Submit".
 
-**Тестовые данные и ожидаемый результат:**
-|№|Почта|Ожидаемый результат|
-|-|------|--------------------|
-|1|arseniy|Введена не почта, ошибка о некорректности почты|
-|2|arseniym148@gmail|Введена не почта, ошибка о некорректности почты|
-|3|arseniym148\@gmail.com|Почта принята, ошибки о некорректности почты нет|
+**Test Data and Expected Result:**
+|No.|Email|Expected Result|
+|-|-----|---------------|
+|1|arseniy|The entered value is not an email address, and an invalid email error appears.|
+|2|arseniym148@gmail|The entered value is not an email address, and an invalid email error appears.|
+|3|arseniym148\@gmail.com|The email is accepted, and no invalid email error appears.|
 
-## Тест-кейс MP-4.4: Тесты поля Phone
-**Предусловия:**
-1. Открыта форма "Send Us a Message"
+## Test Case MP-4.4: Phone Field Tests
+**Preconditions:**
+1. The "Send Us a Message" form is opened.
 
-**Действия:**
-1. Ввести номера в поле Phone
-2. Нажать "Submit"
+**Steps:**
+1. Enter phone numbers in the Phone field.
+2. Click "Submit".
 
-**Тестовые данные и ожидаемый результат:**
-|№|Номер телефона|Ожидаемый результат|
-|-|--------------|-------------------|
-|1|aaaaa|Введен не номер телефона, ошибка о некорректности номера телефона|
-|2|0123456789|Минимальная длина номера - 11 символов, ошибка о некорректности номера телефона|
-|3|+0123456789|Номер принят, ошибки о некорректности номера телефона нет|
-|4|012 345 67 89|Номер принят, ошибки о некорректности номера телефона нет|
-|5|012 345-67-89|Номер принят, ошибки о некорректности номера телефона нет|
-|6|(012) 345-67-89|Номер принят, ошибки о некорректности номера телефона нет|
-|7|01234567890|Номер принят, ошибки о некорректности номера телефона нет|
-|8|0*21|Номер принят, ошибки о некорректности номера телефона нет|
-|9|0*22|Максимальная длина номера - 21 символ, ошибка о некорректности номера телефона|
+**Test Data and Expected Result:**
+|No.|Phone Number|Expected Result|
+|-|------------|---------------|
+|1|aaaaa|The entered value is not a phone number, and an invalid phone number error appears.|
+|2|0123456789|The minimum phone number length is 11 characters, and an invalid phone number error appears.|
+|3|+0123456789|The phone number is accepted, and no invalid phone number error appears.|
+|4|012 345 67 89|The phone number is accepted, and no invalid phone number error appears.|
+|5|012 345-67-89|The phone number is accepted, and no invalid phone number error appears.|
+|6|(012) 345-67-89|The phone number is accepted, and no invalid phone number error appears.|
+|7|01234567890|The phone number is accepted, and no invalid phone number error appears.|
+|8|0*21|The phone number is accepted, and no invalid phone number error appears.|
+|9|0*22|The maximum phone number length is 21 characters, and an invalid phone number error appears.|
 
-## Тест-кейс MP-4.5: Тесты поля Subject
-**Предусловия:**
-1. Открыта форма "Send Us a Message"
+## Test Case MP-4.5: Subject Field Tests
+**Preconditions:**
+1. The "Send Us a Message" form is opened.
 
-**Действия:**
-1. Ввести темы в поле Subject
-2. Нажать "Submit"
+**Steps:**
+1. Enter subjects in the Subject field.
+2. Click "Submit".
 
-**Тестовые данные и ожидаемый результат:**
-|№|Темы|Ожидаемый результат|
-|-|----|-------------------|
-|1|abcd|Минимальная длина темы - 5 символов, ошибка о некорректности темы|
-|2|abcde|Тема принята, ошибки о некорректности темы нет|
-|3|a*100|Тема принята, ошибки о некорректности темы нет|
-|4|a*101|Максимальная длина темы - 100 символов, ошибка о некорректности темы|
+**Test Data and Expected Result:**
+|No.|Subject|Expected Result|
+|-|-------|---------------|
+|1|abcd|The minimum subject length is 5 characters, and an invalid subject error appears.|
+|2|abcde|The subject is accepted, and no invalid subject error appears.|
+|3|a*100|The subject is accepted, and no invalid subject error appears.|
+|4|a*101|The maximum subject length is 100 characters, and an invalid subject error appears.|
 
-## Тест-кейс MP-4.6: Тесты поля Message
-**Предусловия:**
-1. Открыта форма "Send Us a Message"
+## Test Case MP-4.6: Message Field Tests
+**Preconditions:**
+1. The "Send Us a Message" form is opened.
 
-**Действия:**
-1. Ввести сообщения в поле Message
-2. Нажать "Submit"
+**Steps:**
+1. Enter messages in the Message field.
+2. Click "Submit".
 
-**Тестовые данные и ожидаемый результат:**
-|№|Сообщение|Ожидаемый результат|
-|-|---------|-------------------|
-|1|a*19|Минимальная длина сообщения - 20 символов, ошибка о некорректности сообщения|
-|2|a*20|Сообщение принято, ошибки о некорректности сообщения нет|
-|3|a*2000|Сообщение принято, ошибки о некорректности сообщения нет|
-|4|a*2001|Максимальная длина сообщения - 2000 символов, ошибка о некорректности сообщения|
+**Test Data and Expected Result:**
+|No.|Message|Expected Result|
+|-|-------|---------------|
+|1|a*19|The minimum message length is 20 characters, and an invalid message error appears.|
+|2|a*20|The message is accepted, and no invalid message error appears.|
+|3|a*2000|The message is accepted, and no invalid message error appears.|
+|4|a*2001|The maximum message length is 2000 characters, and an invalid message error appears.|
 
-## Тест-кейс MP-4.7: Все поля заполнены корректно
-**Предусловия:**
-1. Открыта форма "Send Us a Message"
+## Test Case MP-4.7: All Fields Are Filled Correctly
+**Preconditions:**
+1. The "Send Us a Message" form is opened.
 
-**Действия:**
-1. Ввести в поле Name - Name
-2. Ввести в поле Email - arseniym148\@gmail.com
-3. Ввести в поле Phone - +1234567890
-4. Ввести в поле Subject - Subject
-5. Ввести в поле Message - MessageMessageMessageMessage
-6. Нажать "Submit"
+**Steps:**
+1. Enter `Name` in the Name field.
+2. Enter `arseniym148\@gmail.com` in the Email field.
+3. Enter `+1234567890` in the Phone field.
+4. Enter `Subject` in the Subject field.
+5. Enter `MessageMessageMessageMessage` in the Message field.
+6. Click "Submit".
 
-**Ожидаемый результат:**
-1. Появилось уведомление об успешной отправке сообщения
-2. В тесте уведомления корректно указаны имя и тема сообщения
+**Expected Result:**
+1. A successful message submission notification appears.
+2. The notification contains the correct name and subject.

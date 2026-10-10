@@ -8,16 +8,16 @@ class MainPage(BasePage):
 
     def press_button_book_now(self):
         assert self.press_button(*MainPageLocators.BUTTON_BOOK_NOW), \
-            'Кнопка "Book Now" не найдена'
+            'The "Book Now" button was not found'
 
     def press_button_check_availability(self):
         self.take_screenshot()
         assert self.press_button(*MainPageLocators.BUTTON_CHECK_AVAILABILITY), \
-            'Кнопка "Check Availability" не найдена'
+            'The "Check Availability" button was not found'
 
     def press_check_in_date(self):
         assert self.press_button(*MainPageLocators.CHECK_IN_DATE), \
-            'Поле выбора Check In не видно на странице'
+            'The Check In date field is not visible on the page'
 
     def press_open_calendar(self, date_type):
         if date_type == 'check in':
@@ -25,7 +25,7 @@ class MainPage(BasePage):
         elif date_type == 'check out':
             self.press_button(*MainPageLocators.CHECK_OUT_DATE)
         else:
-            raise ValueError(f'На сайте нет поля выбора даты с названием {date_type}')
+            raise ValueError(f'The site does not have a date field named {date_type}')
 
     def scroll_month(self, months_offset):
         if months_offset >= 0:
@@ -40,7 +40,7 @@ class MainPage(BasePage):
     def press_on_the_day(self, day):
         current_month = self.get_current_month_year_from_calendar()[0]
         assert self.press_button(*MainPageLocators.get_select_nth_date_in_current_month_calendar(current_month, day)), \
-            f'Похоже, в данном месяце нет {day} числа'
+            f'It looks like this month does not have day {day}'
 
     def set_calendar_date(self, date_type, day, months_offset=0):
         self.press_open_calendar(date_type=date_type)
@@ -52,11 +52,11 @@ class MainPage(BasePage):
 
     def press_button_next_month(self):
         assert self.press_button(*MainPageLocators.BUTTON_NEXT_MONTH), \
-            'Кнопка следующего месяца не найдена'
+            'The next month button was not found'
 
     def press_button_previous_month(self):
         assert self.press_button(*MainPageLocators.BUTTON_PREVIOUS_MONTH), \
-            'Кнопка предыдущего месяца не найдена'
+            'The previous month button was not found'
 
     def input_name(self, name):
         self.take_screenshot()
@@ -96,123 +96,123 @@ class MainPage(BasePage):
     def should_be_opened_main_page(self):
         self.take_screenshot()
         assert self.is_element_present(*MainPageLocators.WELCOME_MESSAGE), \
-            'Открыта не главная страница'
+            'The opened page is not the main page'
     def should_be_displayed_header_our_rooms(self):
         self.take_screenshot()
         assert self.is_element_displayed(*MainPageLocators.HEADER_OUR_ROOMS), \
-            'Заголовок "Our Rooms" не найден'
+            'The "Our Rooms" header was not found'
 
     def should_be_nth_room_card_displayed(self, cards_number):
         self.take_screenshot()
         assert self.is_element_displayed(*MainPageLocators.get_select_of_nth_room_card(n=cards_number)), \
-            f'{cards_number}-я карточка отсутствует'
+            f'Room card {cards_number} is missing'
 
     def check_error_name_is_blank_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_NAME_IS_BLANK)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Name may not be blank" отсутствует'
+                'The "Name may not be blank" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Name may not be blank" не должна присутствовать'
+                'The "Name may not be blank" error should not be present'
 
     def check_error_name_wrong_format_present(self, should_be_present):
         is_present = self.is_element_present(*BasePageLocators.STUB_ERROR_MESSAGE)
         if should_be_present:
             assert is_present, \
-                'Ошибка "must be a well-formed name" отсутствует'
+                'The "must be a well-formed name" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "must be a well-formed name" не должна присутствовать'
+                'The "must be a well-formed name" error should not be present'
 
     def check_error_email_is_blank_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_EMAIL_IS_BLANK)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Email may not be blank" отсутствует'
+                'The "Email may not be blank" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Email may not be blank" не должна присутствовать'
+                'The "Email may not be blank" error should not be present'
 
     def check_error_email_wrong_format_present(self, should_be_present):
         self.take_screenshot()
         is_present = self.is_element_present(*MainPageLocators.ERROR_EMAIL_WRONG_FORM)
         if should_be_present:
             assert is_present, \
-                'Ошибка "must be a well-formed email address" отсутствует'
+                'The "must be a well-formed email address" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "must be a well-formed email address" не должна присутствовать'
+                'The "must be a well-formed email address" error should not be present'
 
     def check_error_phone_is_blank_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_PHONE_IS_BLANK)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Phone may not be blank" отсутствует'
+                'The "Phone may not be blank" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Phone may not be blank" не должна присутствовать'
+                'The "Phone may not be blank" error should not be present'
 
     def check_error_phone_wrong_length_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_PHONE_WRONG_LENGTH)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Phone must be between 11 and 21 characters." отсутствует'
+                'The "Phone must be between 11 and 21 characters." error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Phone must be between 11 and 21 characters." не должна присутствовать'
+                'The "Phone must be between 11 and 21 characters." error should not be present'
 
     def check_error_phone_wrong_format_present(self, should_be_present):
         is_present = self.is_element_present(*BasePageLocators.STUB_ERROR_MESSAGE)
         if should_be_present:
             assert is_present, \
-                'Ошибка "must be a well-formed phone" отсутствует'
+                'The "must be a well-formed phone" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "must be a well-formed phone" не должна присутствовать'
+                'The "must be a well-formed phone" error should not be present'
 
     def check_error_subject_is_blank_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_SUBJECT_IS_BLANK)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Subject may not be blank" отсутствует'
+                'The "Subject may not be blank" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Subject may not be blank" не должна присутствовать'
+                'The "Subject may not be blank" error should not be present'
 
     def check_error_subject_wrong_length_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_SUBJECT_WRONG_LENGTH)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Subject must be between 5 and 100 characters." отсутствует'
+                'The "Subject must be between 5 and 100 characters." error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Subject must be between 5 and 100 characters." не должна присутствовать'
+                'The "Subject must be between 5 and 100 characters." error should not be present'
 
     def check_error_message_is_blank_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_MESSAGE_IS_BLANK)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Message may not be blank" отсутствует'
+                'The "Message may not be blank" error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Message may not be blank" не должна присутствовать'
+                'The "Message may not be blank" error should not be present'
 
     def check_error_message_wrong_length_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_MESSAGE_WRONG_LENGTH)
         if should_be_present:
             assert is_present, \
-                'Ошибка "Message must be between 20 and 2000 characters." отсутствует'
+                'The "Message must be between 20 and 2000 characters." error is missing'
         else:
             assert not is_present, \
-                'Ошибка "Message must be between 20 and 2000 characters." не должна присутствовать'
+                'The "Message must be between 20 and 2000 characters." error should not be present'
 
     def should_be_same_name_in_form(self, correct_name):
         got_name = self.get_text_from_element(*MainPageLocators.FILLED_FORM_NAME)
         assert got_name == f'Thanks for getting in touch {correct_name}!',\
-            f'Имена отличаются: ожидалось {correct_name}, получено {got_name}'
+            f'Names differ: expected {correct_name}, got {got_name}'
 
     def should_be_same_subject_in_form(self, correct_subject):
         got_subject = self.get_text_from_element(*MainPageLocators.FILLED_FORM_SUBJECT)
         assert got_subject == correct_subject,\
-            f'Темы отличаются: ожидалось {correct_subject}, получено {got_subject}'
+            f'Subjects differ: expected {correct_subject}, got {got_subject}'
