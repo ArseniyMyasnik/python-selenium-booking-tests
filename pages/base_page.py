@@ -1,12 +1,8 @@
 from selenium.common.exceptions import WebDriverException, NoSuchElementException, \
-    ElementNotInteractableException, NoSuchAttributeException
-from selenium.webdriver.support.ui import Select
+    ElementNotInteractableException, TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import pytest
-import inspect
 import allure
-from allure import attachment_type
 import time
 from .locators import BasePageLocators
 
@@ -27,10 +23,11 @@ class BasePage():
         self.browser.refresh()
 
     def is_element_present(self, type_selector, selector):
-        self.browser.implicitly_wait(5)
         try:
-            self.browser.find_element(type_selector, selector)
-        except (NoSuchElementException or ElementNotInteractableException):
+            WebDriverWait(self.browser, 3).until(
+                EC.presence_of_element_located((type_selector, selector))
+            )
+        except (TimeoutException, NoSuchElementException, ElementNotInteractableException):
             return False
         return True
 
@@ -38,12 +35,13 @@ class BasePage():
         button = self.browser.find_element(type_selector, selector)
         button.click()
 
-    def press_button(self, type_selector, selector):
-        time.sleep(3)
+    def press_button(self, type_selector, selector,):
         try:
-            button = self.browser.find_element(type_selector, selector)
+            button = WebDriverWait(self.browser, 10).until(
+                EC.element_to_be_clickable((type_selector, selector))
+            )
             button.click()
-        except (NoSuchElementException or ElementNotInteractableException or type(button) == 'NoneType'):
+        except (TimeoutException, NoSuchElementException, ElementNotInteractableException):
             return False
         return True
 
@@ -66,9 +64,11 @@ class BasePage():
         self.browser.execute_script(f'window.scrollBy(0, {n});')
 
     def is_element_displayed(self, type_selector, selector):
-        time.sleep(2)
-        element = self.browser.find_element(type_selector, selector)
-        is_displayed = self.browser.execute_script(
+        try:
+            element = WebDriverWait(self.browser, 10).until(EC.visibility_of_element_located((type_selector, selector)))
+        except TimeoutException:
+            return False
+        return self.browser.execute_script(
             "var elem = arguments[0];"
             "var rect = elem.getBoundingClientRect();"
             "return ("
@@ -76,7 +76,6 @@ class BasePage():
             "rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && "
             "rect.right <= (window.innerWidth || document.documentElement.clientWidth));",
             element)
-        return is_displayed
 
     def get_text_from_element(self, type_selector, selector):
         element = self.browser.find_element(type_selector, selector)

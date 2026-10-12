@@ -5,6 +5,9 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from constants import UrlPage
 from webdriver_manager.chrome import ChromeDriverManager
 import contextlib
+from pages.locators import MainPageLocators
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 def pytest_addoption(parser):
     parser.addoption('--headless', action='store_true', help='run without browser UI')
@@ -31,5 +34,5 @@ def link_main_page(request):
 @pytest.fixture(scope='function')
 def open_main_page(browser, link_main_page):
     browser.get(link_main_page)
-    browser.implicitly_wait(10)
+    WebDriverWait(browser, 10).until(EC.visibility_of_element_located(MainPageLocators.WELCOME_MESSAGE))
     yield browser, link_main_page

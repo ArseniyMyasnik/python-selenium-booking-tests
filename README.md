@@ -72,6 +72,8 @@ They describe tested areas, test data, expected results, and negative scenarios 
 
 The project uses **GitHub Actions** to validate test collection on every push and pull request.
 
+For this portfolio project, CI checks test collection only.
+
 The CI workflow installs project dependencies with `pip install -r requirements.txt` and runs:
 
 ```bash
