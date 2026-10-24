@@ -142,7 +142,7 @@ pytest --headless
 Run tests with Allure results:
 
 ```bash
-pytest
+pytest --alluredir=allure-results
 ```
 
 Generate and open the Allure report:
