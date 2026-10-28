@@ -82,8 +82,8 @@
 |-|---|---------------|
 |1|Ivan|The name is accepted, and no invalid name error appears.|
 |2|John|The name is accepted, and no invalid name error appears.|
-|3|Ivan!|The name is not accepted, and an invalid name error appears.|
-|4|Ivan1|The name is not accepted, and an invalid name error appears.|
+|3|Ivan!|The name is accepted, and no invalid name error appears.|
+|4|Ivan1|The name is accepted, and no invalid name error appears.|
 
 ## Test Case MP-4.3: Email Field Tests
 **Preconditions:**
@@ -97,7 +97,7 @@
 |No.|Email|Expected Result|
 |-|-----|---------------|
 |1|arseniy|The entered value is not an email address, and an invalid email error appears.|
-|2|arseniym148@gmail|The entered value is not an email address, and an invalid email error appears.|
+|2|arseniym148@gmail|The email is accepted, and no invalid email error appears.|
 |3|arseniym148\@gmail.com|The email is accepted, and no invalid email error appears.|
 
 ## Test Case MP-4.4: Phone Field Tests

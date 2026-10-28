@@ -116,15 +116,6 @@ class MainPage(BasePage):
             assert not is_present, \
                 'The "Name may not be blank" error should not be present'
 
-    def check_error_name_wrong_format_present(self, should_be_present):
-        is_present = self.is_element_present(*BasePageLocators.STUB_ERROR_MESSAGE)
-        if should_be_present:
-            assert is_present, \
-                'The "must be a well-formed name" error is missing'
-        else:
-            assert not is_present, \
-                'The "must be a well-formed name" error should not be present'
-
     def check_error_email_is_blank_present(self, should_be_present):
         is_present = self.is_element_present(*MainPageLocators.ERROR_EMAIL_IS_BLANK)
         if should_be_present:

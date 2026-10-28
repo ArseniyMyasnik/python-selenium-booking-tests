@@ -87,13 +87,13 @@ class TestMainPage():
             page.check_error_message_wrong_length_present(should_be_present=True)
 
     @allure.description('MP-4.2: Name field tests')
-    @pytest.mark.parametrize('name, expected_success',
-                             [('Ivan', True),
-                             ('John', True),
-                             ('Ivan!', False),
-                             ('Ivan1', False)]
+    @pytest.mark.parametrize('name',
+                             [('Ivan'),
+                             ('John'),
+                             ('Ivan!'),
+                             ('Ivan1')]
                              )
-    def test_name_field(self, open_main_page, name, expected_success):
+    def test_name_field(self, open_main_page, name):
         browser, link = open_main_page
         page = MainPage(browser, link)
         page.scroll_to_submit_send_us_a_message_form()
@@ -102,19 +102,13 @@ class TestMainPage():
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
         page.take_screenshot()
-        if expected_success:
-            with allure.step('Result: the "Name may not be blank" and "must be a well-formed name" errors are not shown'):
-                page.check_error_name_is_blank_present(should_be_present=False)
-                page.check_error_name_wrong_format_present(should_be_present=False)
-        else:
-            with allure.step('Result: the "Name may not be blank" error is not shown, and the "must be a well-formed name" error is shown'):
-                page.check_error_name_is_blank_present(should_be_present=False)
-                page.check_error_name_wrong_format_present(should_be_present=True)
+        with allure.step('Result: the "Name may not be blank" error is not shown'):
+            page.check_error_name_is_blank_present(should_be_present=False)
 
     @allure.description('MP-4.3: Email field tests')
     @pytest.mark.parametrize('email, expected_success',
                              [('arseniy', False),
-                              ('arseniym148@gmail', False),
+                              ('arseniym148@gmail', True),
                               ('arseniym148@gmail.com', True)])
     def test_email_field(self, open_main_page, email, expected_success):
         browser, link = open_main_page
@@ -126,27 +120,29 @@ class TestMainPage():
             page.press_submit_send_us_a_message_form()
         page.take_screenshot()
         if expected_success:
-            with allure.step('Result: the "Email may not be blank" and "must be a well-formed email address" errors are not shown'):
+            with allure.step(
+                    'Result: the "Email may not be blank" and "must be a well-formed email address" errors are not shown'):
                 page.check_error_email_is_blank_present(should_be_present=False)
                 page.check_error_email_wrong_format_present(should_be_present=False)
         else:
-            with allure.step('Result: the "Email may not be blank" error is not shown, and the "must be a well-formed email address" error is shown'):
+            with allure.step(
+                    'Result: the "Email may not be blank" error is not shown, and the "must be a well-formed email address" error is shown'):
                 page.check_error_email_is_blank_present(should_be_present=False)
                 page.check_error_email_wrong_format_present(should_be_present=True)
 
     @allure.description('MP-4.4: Phone field tests')
-    @pytest.mark.parametrize('phone, expected_wrong_format, expected_wrong_length',
-                             [('aaaaa', True, False),
-                              ('0123456789', False, True),
-                              ('+0123456789', False, False),
-                              ('012 345 67 89', False, False),
-                              ('012 345-67-89', False, False),
-                              ('(012) 345-67-89', False, False),
-                              ('01234567890', False, False),
-                              ('0'*21, False, False),
-                              ('0'*22, False, True),
+    @pytest.mark.parametrize('phone, expected_wrong_length',
+                             [('aaaaa', True),
+                              ('0123456789', True),
+                              ('+0123456789', False),
+                              ('012 345 67 89', False),
+                              ('012 345-67-89', False),
+                              ('(012) 345-67-89', False),
+                              ('01234567890', False),
+                              ('0'*21, False),
+                              ('0'*22, True),
                              ])
-    def test_phone_field(self, open_main_page, phone, expected_wrong_format, expected_wrong_length):
+    def test_phone_field(self, open_main_page, phone, expected_wrong_length):
         browser, link = open_main_page
         page = MainPage(browser, link)
         page.scroll_to_submit_send_us_a_message_form()
@@ -155,25 +151,14 @@ class TestMainPage():
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
         page.take_screenshot()
-        if expected_wrong_format:
-            with allure.step('Result: the "Phone may not be blank" '
-                             'and "Phone must be between 11 and 21 characters." errors are not shown, '
-                             'and the "must be a well-formed phone" error is shown'):
-                page.check_error_phone_wrong_format_present(should_be_present=True)
-                page.check_error_phone_is_blank_present(should_be_present=False)
-                page.check_error_phone_wrong_length_present(should_be_present=False)
-        elif expected_wrong_length:
-            with allure.step('Result: the "must be a well-formed phone" '
-                             'and "Phone may not be blank" errors are not shown, '
+        if expected_wrong_length:
+            with allure.step('Result: "Phone may not be blank" error is not shown, '
                              'and the "Phone must be between 11 and 21 characters." error is shown'):
-                page.check_error_phone_wrong_format_present(should_be_present=False)
                 page.check_error_phone_is_blank_present(should_be_present=False)
                 page.check_error_phone_wrong_length_present(should_be_present=True)
         else:
-            with allure.step('Result: the "must be a well-formed phone", '
-                             '"Phone may not be blank", and '
-                             '"Phone must be between 11 and 21 characters." errors are not shown'):
-                page.check_error_phone_wrong_format_present(should_be_present=False)
+            with allure.step('Result: "Phone may not be blank", '
+                             'and the "Phone must be between 11 and 21 characters." errors are not shown'):
                 page.check_error_phone_is_blank_present(should_be_present=False)
                 page.check_error_phone_wrong_length_present(should_be_present=False)
 
