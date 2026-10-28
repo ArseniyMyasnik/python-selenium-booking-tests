@@ -111,15 +111,15 @@
 **Test Data and Expected Result:**
 |No.|Phone Number|Expected Result|
 |-|------------|---------------|
-|1|aaaaa|The entered value is not a phone number, and an invalid phone number error appears.|
-|2|0123456789|The minimum phone number length is 11 characters, and an invalid phone number error appears.|
-|3|+0123456789|The phone number is accepted, and no invalid phone number error appears.|
-|4|012 345 67 89|The phone number is accepted, and no invalid phone number error appears.|
-|5|012 345-67-89|The phone number is accepted, and no invalid phone number error appears.|
-|6|(012) 345-67-89|The phone number is accepted, and no invalid phone number error appears.|
-|7|01234567890|The phone number is accepted, and no invalid phone number error appears.|
-|8|0*21|The phone number is accepted, and no invalid phone number error appears.|
-|9|0*22|The maximum phone number length is 21 characters, and an invalid phone number error appears.|
+|1|aaaaa|The phone number is rejected because it is shorter than 11 characters, and a length error appears.|
+|2|0123456789|The phone number is rejected because it is shorter than 11 characters, and a length error appears.|
+|3|+0123456789|The phone number is accepted, and no length error appears.|
+|4|012 345 67 89|The phone number is accepted, and no length error appears.|
+|5|012 345-67-89|The phone number is accepted, and no length error appears.|
+|6|(012) 345-67-89|The phone number is accepted, and no length error appears.|
+|7|01234567890|The phone number is accepted, and no length error appears.|
+|8|0*21|The phone number is accepted, and no length error appears.|
+|9|0*22|The phone number is rejected because it is longer than 21 characters, and a length error appears.|
 
 ## Test Case MP-4.5: Subject Field Tests
 **Preconditions:**

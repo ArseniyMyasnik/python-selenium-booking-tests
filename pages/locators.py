@@ -17,7 +17,7 @@ class MainPageLocators():
     BUTTON_PREVIOUS_MONTH = (By.XPATH, '//button[@aria-label="Previous Month"]')
     CURRENT_DATE_CALENDAR = (By.CLASS_NAME, 'react-datepicker__current-month')
     HEADER_SEND_US_A_MESSAGE = (By.CSS_SELECTOR, '.h4.mb-4.text-center')
-    FILLED_FORM_NAME = (By.CSS_SELECTOR, '.card-body.p-4 > .h4.mb-4')
+    FILLED_FORM_NAME = (By.XPATH, '//*[contains(@class, "h4") and contains(., "Thanks for getting in touch")]')
     FILLED_FORM_SUBJECT = (By.XPATH, '//div[@class="card-body p-4"]//p[@style="font-weight: bold;"]')
 
     def get_select_of_nth_room_card(n):

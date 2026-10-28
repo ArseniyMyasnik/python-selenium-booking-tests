@@ -1,5 +1,3 @@
-import time
-
 from .base_page import BasePage
 from .locators import MainPageLocators
 from .locators import BasePageLocators
@@ -11,7 +9,6 @@ class MainPage(BasePage):
             'The "Book Now" button was not found'
 
     def press_button_check_availability(self):
-        self.take_screenshot()
         assert self.press_button(*MainPageLocators.BUTTON_CHECK_AVAILABILITY), \
             'The "Check Availability" button was not found'
 
@@ -21,9 +18,11 @@ class MainPage(BasePage):
 
     def press_open_calendar(self, date_type):
         if date_type == 'check in':
-            self.press_button(*MainPageLocators.CHECK_IN_DATE)
+            assert self.press_button(*MainPageLocators.CHECK_IN_DATE), \
+                'Check In field was not opened'
         elif date_type == 'check out':
-            self.press_button(*MainPageLocators.CHECK_OUT_DATE)
+            assert self.press_button(*MainPageLocators.CHECK_OUT_DATE), \
+                'Check Out field was not opened'
         else:
             raise ValueError(f'The site does not have a date field named {date_type}')
 
@@ -59,27 +58,26 @@ class MainPage(BasePage):
             'The previous month button was not found'
 
     def input_name(self, name):
-        self.take_screenshot()
-        self.set_value_input(*MainPageLocators.INPUT_NAME, data=name)
+        assert self.set_value_input(*MainPageLocators.INPUT_NAME, data=name), \
+            'Name input was not found'
 
     def input_email(self, email):
-        self.take_screenshot()
-        self.set_value_input(*MainPageLocators.INPUT_EMAIL, data=email)
+        assert self.set_value_input(*MainPageLocators.INPUT_EMAIL, data=email), \
+            'Email input was not found'
 
     def input_phone(self, phone):
-        self.take_screenshot()
-        self.set_value_input(*MainPageLocators.INPUT_PHONE, data=phone)
+        assert self.set_value_input(*MainPageLocators.INPUT_PHONE, data=phone), \
+            'Phone input was not found'
 
     def input_subject(self, subject):
-        self.take_screenshot()
-        self.set_value_input(*MainPageLocators.INPUT_SUBJECT, data=subject)
+        assert self.set_value_input(*MainPageLocators.INPUT_SUBJECT, data=subject), \
+            'Subject input was not found'
 
     def input_message(self, message):
-        self.take_screenshot()
-        self.set_value_input(*MainPageLocators.INPUT_MESSAGE, data=message)
+        assert self.set_value_input(*MainPageLocators.INPUT_MESSAGE, data=message), \
+            'Message input was not found'
 
     def scroll_to_header_check_dates(self):
-        self.take_screenshot()
         self.scroll_to_element(*MainPageLocators.HEADER_CHECK_DATES)
 
     def scroll_to_header_send_us_a_message(self):
@@ -90,20 +88,17 @@ class MainPage(BasePage):
 
     def press_submit_send_us_a_message_form(self):
         self.scroll_to_element(*MainPageLocators.SUBMIT_SEND_US_A_MESSAGE_FORM)
-        self.press_button(*MainPageLocators.SUBMIT_SEND_US_A_MESSAGE_FORM)
-        self.take_screenshot()
+        assert self.press_button(*MainPageLocators.SUBMIT_SEND_US_A_MESSAGE_FORM), \
+            'Submit button was not clicked'
 
     def should_be_opened_main_page(self):
-        self.take_screenshot()
         assert self.is_element_present(*MainPageLocators.WELCOME_MESSAGE), \
             'The opened page is not the main page'
     def should_be_displayed_header_our_rooms(self):
-        self.take_screenshot()
         assert self.is_element_displayed(*MainPageLocators.HEADER_OUR_ROOMS), \
             'The "Our Rooms" header was not found'
 
     def should_be_nth_room_card_displayed(self, cards_number):
-        self.take_screenshot()
         assert self.is_element_displayed(*MainPageLocators.get_select_of_nth_room_card(n=cards_number)), \
             f'Room card {cards_number} is missing'
 
@@ -126,7 +121,6 @@ class MainPage(BasePage):
                 'The "Email may not be blank" error should not be present'
 
     def check_error_email_wrong_format_present(self, should_be_present):
-        self.take_screenshot()
         is_present = self.is_element_present(*MainPageLocators.ERROR_EMAIL_WRONG_FORM)
         if should_be_present:
             assert is_present, \

@@ -22,10 +22,13 @@ class TestMainPage():
             page.should_be_displayed_header_our_rooms()
 
     @allure.description('MP-3.1: Check room availability with valid dates')
-    def test_set_correct_dates(self, open_main_page):
+    def test_check_room_availability_with_valid_dates(self, open_main_page):
         browser, link = open_main_page
         page = MainPage(browser, link)
         page.scroll_to_header_check_dates()
+        with allure.step('Enter Check In and Check Out dates'):
+            page.set_calendar_date(date_type='check in', months_offset=1, day=15)
+            page.set_calendar_date(date_type='check out', months_offset=1, day=20)
         with allure.step('Click the "Check Availability" button'):
             page.press_button_check_availability()
         with allure.step('Result: available rooms are shown for valid dates'):
@@ -68,7 +71,6 @@ class TestMainPage():
         page.scroll_to_submit_send_us_a_message_form()
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
-        page.take_screenshot()
         with allure.step('The "Name may not be blank" error is shown'):
             page.check_error_name_is_blank_present(should_be_present=True)
         with allure.step('The "Email may not be blank" error is shown'):
@@ -101,7 +103,6 @@ class TestMainPage():
             page.input_name(name)
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
-        page.take_screenshot()
         with allure.step('Result: the "Name may not be blank" error is not shown'):
             page.check_error_name_is_blank_present(should_be_present=False)
 
@@ -118,7 +119,6 @@ class TestMainPage():
             page.input_email(email)
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
-        page.take_screenshot()
         if expected_success:
             with allure.step(
                     'Result: the "Email may not be blank" and "must be a well-formed email address" errors are not shown'):
@@ -150,7 +150,6 @@ class TestMainPage():
             page.input_phone(phone)
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
-        page.take_screenshot()
         if expected_wrong_length:
             with allure.step('Result: "Phone may not be blank" error is not shown, '
                              'and the "Phone must be between 11 and 21 characters." error is shown'):
@@ -176,7 +175,6 @@ class TestMainPage():
             page.input_subject(subject)
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
-        page.take_screenshot()
         if expected_success:
             with allure.step(
                     'Result: the "Subject may not be blank" and "Subject must be between 5 and 100 characters." errors are not shown'):
@@ -203,7 +201,6 @@ class TestMainPage():
             page.input_message(message)
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
-        page.take_screenshot()
         if expected_success:
             with allure.step(
                     'Result: the "Message may not be blank" and "Message must be between 20 and 2000 characters." errors are not shown'):
@@ -231,8 +228,6 @@ class TestMainPage():
             page.input_message(data['message'])
         with allure.step('Click Submit'):
             page.press_submit_send_us_a_message_form()
-        page.take_screenshot()
         with allure.step('A success notification is shown, and the name and subject are displayed correctly'):
             page.should_be_same_name_in_form(correct_name=data['name'])
             page.should_be_same_subject_in_form(correct_subject=data['subject'])
-            page.take_screenshot()

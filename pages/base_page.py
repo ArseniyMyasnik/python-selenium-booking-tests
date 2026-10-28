@@ -35,7 +35,7 @@ class BasePage():
         button = self.browser.find_element(type_selector, selector)
         button.click()
 
-    def press_button(self, type_selector, selector,):
+    def press_button(self, type_selector, selector):
         try:
             button = WebDriverWait(self.browser, 10).until(
                 EC.element_to_be_clickable((type_selector, selector))
@@ -64,29 +64,33 @@ class BasePage():
         self.browser.execute_script(f'window.scrollBy(0, {n});')
 
     def is_element_displayed(self, type_selector, selector):
+        def is_in_viewport(driver):
+            element = driver.find_element(type_selector, selector)
+
+            if not element.is_displayed():
+                return False
+
+            return driver.execute_script(
+                """
+                const rect = arguments[0].getBoundingClientRect();
+            const viewportHeight =
+                window.innerHeight || document.documentElement.clientHeight;
+            return rect.bottom > 0 && rect.top < viewportHeight;
+        """, element
+            )
         try:
-            element = WebDriverWait(self.browser, 10).until(EC.visibility_of_element_located((type_selector, selector)))
-        except TimeoutException:
+            return WebDriverWait(self.browser, 10).until(is_in_viewport)
+        except (TimeoutException, NoSuchElementException):
             return False
-        return self.browser.execute_script(
-            "var elem = arguments[0];"
-            "var rect = elem.getBoundingClientRect();"
-            "return ("
-            "rect.top >= 0 && rect.left >= 0 && "
-            "rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && "
-            "rect.right <= (window.innerWidth || document.documentElement.clientWidth));",
-            element)
 
     def get_text_from_element(self, type_selector, selector):
-        element = self.browser.find_element(type_selector, selector)
+        element = WebDriverWait(self.browser, timeout=10).until(EC.visibility_of_element_located((type_selector, selector)))
         return element.text
 
     def should_be_stub_error_message(self):
-        self.take_screenshot()
         assert self.is_element_present(*BasePageLocators.STUB_ERROR_MESSAGE)
 
     def take_screenshot(self):
-        time.sleep(0.5)
         screenshot = self.browser.get_screenshot_as_png()
         allure.attach(
             screenshot,

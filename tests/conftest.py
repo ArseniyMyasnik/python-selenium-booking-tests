@@ -1,4 +1,5 @@
 import pytest
+import allure
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -36,3 +37,20 @@ def open_main_page(browser, link_main_page):
     browser.get(link_main_page)
     WebDriverWait(browser, 10).until(EC.visibility_of_element_located(MainPageLocators.WELCOME_MESSAGE))
     yield browser, link_main_page
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when != 'call' or not report.failed:
+        return
+
+    browser = item.funcargs.get('browser')
+
+    if browser is not None:
+        allure.attach(
+            browser.get_screenshot_as_png(),
+            name='Failure screenshot',
+            attachment_type=allure.attachment_type.PNG
+        )
