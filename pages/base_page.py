@@ -10,7 +10,7 @@ class BasePage():
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
-        self.browser.maximize_window()
+        self.browser.set_window_size(1920, 1080)
 
     def open(self):
         try:
