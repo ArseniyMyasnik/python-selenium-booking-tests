@@ -6,38 +6,38 @@ on:
   workflow_dispatch:
 
 permissions:
-  contests: read
+  contents: read
 
 jobs:
   ui-tests:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
 
-  steps:
-    - name: Checkout repository
-      uses: actions/setup-checkout@v7
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
 
-    - name: Set up Python
-      uses: actions/setup-python@v7
-      with:
-        python-version: "3.11"
-        cache: pip
-        cache-dependency-path: requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
 
-    - name: Install dependencies
-      run: python -m pip install requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
 
-    - name: Check Chrome
-      run: google-chrome --version
+      - name: Check Chrome
+        run: google-chrome --version
 
-    - name: Run UI tests
-      run: python -m pytest --headless --alluredir=allure-results
+      - name: Run UI tests
+        run: python -m pytest --headless --alluredir=allure-results
 
-    - name: Upload Allure results
-      if: always()
-      uses: actions/upload-artifact@v7
-      with:
-        name: allure-results
-        path: allure-results/
-        if-no-files-found: warn
-        retention-days: 14
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: allure-results
+          path: allure-results/
+          if-no-files-found: warn
+          retention-days: 14
